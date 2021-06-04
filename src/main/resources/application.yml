@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: backroom
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/meetingroom
+    username: postgres_supernova_user
+    password: supernova_pass
+
+  jpa:
+    show-sql: true # Mostra o código SQL invocado
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false # Permitir gerar tabelas automaticamente
+    properties:
+      hibernate:
+        ddl-auto: none # Permitir criar regras, views, proocedures
+        format_sql: true # Informa ao Hibernate para formatar o código SQL
+
+server:
+  port: 8080
+  servlet:
+    context-path: /meeting-room
