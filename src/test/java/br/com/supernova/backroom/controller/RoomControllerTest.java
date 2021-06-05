@@ -147,7 +147,7 @@ public class RoomControllerTest {
                 .andExpect(jsonPath("$[0].startHour", is(builderDTO.getStartHour())))
                 .andExpect(jsonPath("$[0].endHour", is(builderDTO.getEndHour())));
     }
-    
+
     @Test
     void whenPUTIsCalledThenAndExceptionThrown() throws Exception {
         RoomDTO builderDTO = RoomDTOBuilder.builder().build().toRoomDTO();

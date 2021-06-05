@@ -11,10 +11,10 @@ spring:
   jpa:
     show-sql: true # Mostra o código SQL invocado
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: false # Permitir gerar tabelas automaticamente
+    generate-ddl: true # Permitir gerar tabelas automaticamente
     properties:
       hibernate:
-        ddl-auto: none # Permitir criar regras, views, proocedures
+        ddl-auto: create-update # Permitir criar regras, views, proocedures
         format_sql: true # Informa ao Hibernate para formatar o código SQL
 
 server:
