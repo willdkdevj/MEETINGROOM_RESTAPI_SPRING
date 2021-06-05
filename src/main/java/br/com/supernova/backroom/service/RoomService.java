@@ -25,13 +25,10 @@ public class RoomService {
     private final MeetingRepository repository;
     private final RoomMapper mapper = RoomMapper.INSTANCE;
 
-    public List<RoomDTO> getAllMeetingRooms(Pageable page){
-        Page<Room> pageRoom = repository.findAll(page);
-        List<RoomDTO> collect = pageRoom.stream()
-                                        .map(mapper::toDTO)
-                                        .collect(Collectors.toList());
-
-        return collect;
+    public List<RoomDTO> getAllMeetingRooms(){
+        return repository.findAll().stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public RoomDTO getMeetingRoomByID(Long id) throws ResourceNotFoundException {

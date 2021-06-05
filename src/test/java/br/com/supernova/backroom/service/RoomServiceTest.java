@@ -13,11 +13,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -114,25 +115,20 @@ public class RoomServiceTest {
         assertThrows(ResourceNotFoundException.class, () -> service.getMeetingRoomByID(INVALID_ROOM_ID));
     }
 
-    /*
-     *
     @Test
     void whenAskedForTheListOfMeetingRoomsThenReturnedAllRoomsDTO(){
         RoomDTO builderDTO = RoomDTOBuilder.builder().build().toRoomDTO();
         Room roomEntity = mapper.toModel(builderDTO);
 
-        List<Room> roomList = Arrays.asList(roomEntity);
-        Page<Room> roomPage = new PageImpl(roomList);
-
         // WHEN
-        when(repository.findAll(any(Pageable.class))).thenReturn(roomPage);
+        when(repository.findAll()).thenReturn(Collections.singletonList(roomEntity));
 
         // THEN
-        List<RoomDTO> allMeetingRooms = service.getAllMeetingRooms(any(Pageable.class));
+        List<RoomDTO> allMeetingRooms = service.getAllMeetingRooms();
         assertThat(allMeetingRooms, is(not(empty())));
-        assertThat(allMeetingRooms.get(0), is(equalTo(builderDTO)));
+        assertThat(allMeetingRooms.get(0).getName(), is(equalTo(builderDTO.getName())));
     }
-    */
+
     @Test
     void whenInformedIDToUpdateRoomThenReturnModifiedRoomDTO() throws ResourceNotFoundException {
         RoomDTO builderDTO = RoomDTOBuilder.builder().build().toRoomDTO();

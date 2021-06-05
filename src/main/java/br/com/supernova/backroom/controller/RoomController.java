@@ -1,13 +1,10 @@
 package br.com.supernova.backroom.controller;
 
-import br.com.supernova.backroom.model.dto.RoomDTO;
 import br.com.supernova.backroom.exception.ResourceNotFoundException;
 import br.com.supernova.backroom.exception.ResourceRoomAlreadyRegisteredException;
+import br.com.supernova.backroom.model.dto.RoomDTO;
 import br.com.supernova.backroom.service.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +23,8 @@ public class RoomController implements RoomControllerImp{
     private final RoomService service;
 
     @GetMapping("/rooms")
-    public Page<RoomDTO> getAll(final Pageable page){
-        List<RoomDTO> allMeetingRooms = service.getAllMeetingRooms(page);
-        Page<RoomDTO> pages = new PageImpl<>(allMeetingRooms);
-        return pages;
+    public ResponseEntity<List<RoomDTO>> getAllRooms(){
+        return ResponseEntity.ok(service.getAllMeetingRooms());
     }
 
     @GetMapping("/room-id/{id}")

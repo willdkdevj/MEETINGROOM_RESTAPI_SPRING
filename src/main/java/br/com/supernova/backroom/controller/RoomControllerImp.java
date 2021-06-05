@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 public interface RoomControllerImp {
 
 
-    Page<RoomDTO> getAll(final Pageable page);
+    ResponseEntity<List<RoomDTO>> getAllRooms();
 
     ResponseEntity<RoomDTO> findByID(@PathVariable Long id) throws ResourceNotFoundException;
 

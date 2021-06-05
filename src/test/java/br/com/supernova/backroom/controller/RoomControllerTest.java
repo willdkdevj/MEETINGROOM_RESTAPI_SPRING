@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.util.Collections;
+
 import static br.com.supernova.backroom.util.UtilJsonToString.jsonAsString;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
@@ -131,6 +133,21 @@ public class RoomControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void whenGETIsCalledByRoomsThenReturnedOK() throws Exception {
+        RoomDTO builderDTO = RoomDTOBuilder.builder().build().toRoomDTO();
+
+        when(service.getAllMeetingRooms()).thenReturn(Collections.singletonList(builderDTO));
+
+        mockMvc.perform(get(URL_PATH + PRE_PATH_FIND_ALL)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name", is(builderDTO.getName())))
+                .andExpect(jsonPath("$[0].date", is(builderDTO.getDate())))
+                .andExpect(jsonPath("$[0].startHour", is(builderDTO.getStartHour())))
+                .andExpect(jsonPath("$[0].endHour", is(builderDTO.getEndHour())));
+    }
+    
     @Test
     void whenPUTIsCalledThenAndExceptionThrown() throws Exception {
         RoomDTO builderDTO = RoomDTOBuilder.builder().build().toRoomDTO();
